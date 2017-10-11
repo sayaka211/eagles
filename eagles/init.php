@@ -19,7 +19,13 @@ include 'inc/navbar.php';
 	<div class="login-form-1">
 		<form id="login-form" class="text-left" method="POST">
 			<div class="login-form-main-message">DBを初期化するとすべてのデータが失われます。<br>
-			初期化しますか？<br><br></div>
+			下記のテーブルを初期化しますか？<br><br>
+			<ul>
+			<li>$event_table</li>
+			<li>$attend_table</li>
+			<li>$member_table</li>
+			</ul><br>
+			</div>
 			<div class="main-login-form">
 				<button type="submit" class="btn btn-primary" name="init_ok" value="1" role="button">初期化実行</button>
 			</div>
