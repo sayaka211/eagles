@@ -17,15 +17,8 @@ $params = array(
 		'meet_time'=>"09:00",
 		'meet_place'=>"",
 		'lunch_flg'=>1,
-		'onigiri_flg'=>1,
-		'onigiri_syosai'=>"[1,3]",
-		'tea_flg'=>1,
-		'tea_toban'=>'2',
-		'tea_pick'=>'1',
 		'car_use_flg'=>'0',
 		'contents' => '',
-		'coach_tpl'=>'',
-		'member_tpl'=>'',
 		);
 if(empty($event_id)){
 	//新規登録
@@ -60,16 +53,14 @@ if(isset($_REQUEST['toroku'])){
 	//画面情報取得
 	$params = $_REQUEST;
 
-	$sql="INSERT INTO $event_table (date,meet_time,meet_place,lunch_flg,onigiri_flg,onigiri_syosai,
-			tea_flg,tea_toban,tea_pick,car_use_flg,contents,coach_tpl,member_tpl)
-	VALUES(:date,:meet_time,:meet_place,:lunch_flg,:onigiri_flg,:onigiri_syosai,
-			:tea_flg,:tea_toban,:tea_pick,:car_use_flg,:contents,:coach_tpl,:member_tpl)";
+	$sql="INSERT INTO $event_table (date,meet_time,meet_place,lunch_flg,
+			car_use_flg,contents)
+	VALUES(:date,:meet_time,:meet_place,:lunch_flg,
+			:car_use_flg,:contents)";
 
 	if(isset($_REQUEST['event_id'])){
 		$sql="UPDATE $event_table set date=:date,meet_time=:meet_time,meet_place=:meet_place,lunch_flg=:lunch_flg,
-		onigiri_flg=:onigiri_flg,onigiri_syosai=:onigiri_syosai,
-		tea_flg=:tea_flg,tea_toban=:tea_toban,tea_pick=:tea_pick,
-		car_use_flg=:car_use_flg,contents=:contents,coach_tpl=:coach_tpl,member_tpl=:member_tpl
+		car_use_flg=:car_use_flg,contents=:contents
 		where id = :id";
 	}else{
 		//すでに登録された日ではないかチェック
@@ -97,15 +88,8 @@ if(isset($_REQUEST['toroku'])){
 	$datas['meet_time'] = $params['meet_time'];
 	$datas['meet_place'] = $params['meet_place'];
 	$datas['lunch_flg'] = (int)$params['lunch_flg'];
-	$datas['onigiri_flg'] = (int)$params['onigiri_flg'];
-	$datas['onigiri_syosai'] = json_encode($params['onigiri_syosai']);
-	$datas['tea_flg'] = (int)$params['tea_flg'];
-	$datas['tea_toban'] = (int)$params['tea_toban'];
-	$datas['tea_pick'] = (int)$params['tea_pick'];
 	$datas['car_use_flg'] = (int)$params['car_use_flg'];
 	$datas['contents'] = $params['contents'];
-	$datas['coach_tpl'] = $params['coach_tpl'];
-	$datas['member_tpl'] = $params['member_tpl'];
 
 	$stmt->execute($datas);
 
@@ -150,33 +134,6 @@ ERR_DISP:
 <html lang="ja">
 	<?php include 'inc/header.php'?>
 	<body>
-	<script type="text/javascript">
-	$(function(){
-		//お茶当番
-		$("select[name='tea_flg']").change(function(){
-			var num = $("[name='tea_flg']").val();
-			if(num == 2){
-				$("[name='tea_toban']").val(99);
-				$("[name='tea_pick']").val(99);
-				//$("[name='tea_pick']").attr("disabled",true);
-			}else if(num == 1){
-				$("[name='tea_toban']").val(1);
-				$("[name='tea_pick']").val(1);
-			}
-		})
-		//コーチ用おにぎり
-		$("select[name='onigiri_flg']").change(function(){
-			var num = $("[name='onigiri_flg']").val();
-			if(num == 2){
-				$("[name='onigiri_syosai[]']").prop("checked",false);
-				//$("[name='onigiri_syosai[]']").attr("disabled",true);
-			}else{
-				//$("[name='onigiri_syosai[]']").attr("disabled",false);
-			}
-		})
-	})
-	</script>
-
 	<div class="container">
 	<?php include 'inc/navbar.php'?>
 	<h3> <?php echo $title?><a href="./admin.php"  class="pull-right btn btn-default">一覧に戻る</a></h3>
@@ -237,61 +194,6 @@ ERR_DISP:
 		</select>
 		</div>
 	</div>
-	<div class="form-group">
-		<label class="col-sm-3 control-label">コーチおにぎり</label>
-		<div class="col-sm-2">
-		<select class="form-control" name="onigiri_flg">
-			<?php foreach($onigiri_flg_list as $key=>$value){?>
-			<option value="<?php echo $key?>"<?php if($params['onigiri_flg'] == $key){echo " selected=\"selected\"";}?>><?php echo $value?></option>
-			<?php }?>
-		</select>
-		</div>
-	</div>
-	<div class="form-group">
-		<?php 
-		//エラーで再表示の際、配列になっているのでjsonに戻す
-		if(!isset($params['onigiri_syosai'])){
-			$params['onigiri_syosai'] = "";
-		}else{
-			if(is_array($params['onigiri_syosai'])){
-				$params['onigiri_syosai']=json_encode($params['onigiri_syosai']);
-			}
-		}
-		?>
-		<div class=" col-sm-offset-3 col-sm-9"><input type="checkbox" name="onigiri_syosai[]" value=1 <?php echo strpos($params['onigiri_syosai'],'1')?"checked=\"checked\"":"";?>><label class="checkbox-inline">６年（１個）</label></div>
-		<div class=" col-sm-offset-3 col-sm-9"><input type="checkbox" name="onigiri_syosai[]" value=2 <?php echo strpos($params['onigiri_syosai'],'2')?"checked=\"checked\"":"";?>><label class="checkbox-inline">６年（２個）</label></div>
-		<div class=" col-sm-offset-3 col-sm-9"><input type="checkbox" name="onigiri_syosai[]" value=3 <?php echo strpos($params['onigiri_syosai'],'3')?"checked=\"checked\"":"";?>><label class="checkbox-inline">５年（１個）</label></div>
-	</div>
-	<div class="form-group">
-	<label class="col-sm-3 control-label">お茶当番</label>
-		<div class="col-sm-2">
-		<select class="form-control" name="tea_flg">
-			<?php foreach($tea_flg_list as $key=>$value){?>
-			<option value="<?php echo $key?>"<?php if($params['tea_flg'] == $key){echo " selected=\"selected\"";}?>><?php echo $value?></option>
-			<?php }?>
-		</select>
-		</div>
-	</div>
-	<div class="form-group">
-		<label class="col-sm-3 control-label">当番</label>
-		<div class="col-sm-4">
-		<select class="form-control" name="tea_toban">
-			<?php foreach($toban_users as $key=>$value){?>
-        	<option value="<?php echo $key?>"<?php if($params['tea_toban'] == $key){echo " selected=\"selected\"";}?>><?php echo $value?></option>
-			<?php }?>
-		</select>
-		</div>
-	</div>
-	<div class="form-group">
-		<label class="col-sm-3 control-label">ピック</label>
-		<div class="col-sm-4">
-		<select class="form-control" name="tea_pick">
-			<?php foreach($toban_users as $key=>$value){?>
-			<option value="<?php echo $key?>"<?php if($params['tea_pick'] == $key){echo " selected=\"selected\"";}?>><?php echo $value?></option>
-			<?php }?>
-		</select>
-		</div>
-	</div>
 
 	<div class="form-group">
 	<label class="col-sm-3 control-label">車移動</label>
@@ -308,20 +210,6 @@ ERR_DISP:
 		<label class="col-sm-3 control-label" for="InputTextarea2">内容</label>
 		<div class="col-sm-9">
 			<textarea rows="5" class="form-control" name="contents"><?php echo $params['contents']?></textarea>
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label" for="InputTextarea2">コーチ用出欠テンプレ</label>
-		<div class="col-sm-9">
-			<textarea rows="5" class="form-control" name="coach_tpl"><?php echo $params['coach_tpl']?></textarea>
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label" for="InputTextarea2">メンバー用出欠テンプレ</label>
-		<div class="col-sm-9">
-			<textarea rows="5" class="form-control" name="member_tpl"><?php echo $params['member_tpl']?></textarea>
 		</div>
 	</div>
 

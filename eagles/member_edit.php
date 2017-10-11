@@ -14,7 +14,6 @@ $params = array(
 		'name'=>'',
 		'car_flg'=>0,
 		'coach_flg'=>0,
-		'sinpan_flg'=>0,
 		'member_flg'=>0,
 		'sort'=>1,
 		);
@@ -51,11 +50,11 @@ if(isset($_REQUEST['toroku'])){
 	//画面情報取得
 	//$params = $_REQUEST;
 
-	$sql="INSERT INTO $member_table (name,car_flg,coach_flg,sinpan_flg,member_flg,sort)
-	VALUES(:name,:car_flg,:coach_flg,:sinpan_flg,:member_flg,:sort)";
+	$sql="INSERT INTO $member_table (name,car_flg,coach_flg,member_flg,sort)
+	VALUES(:name,:car_flg,:coach_flg,:member_flg,:sort)";
 
 	if(!empty($member_id)){
-		$sql="UPDATE $member_table set name=:name,car_flg=:car_flg,coach_flg=:coach_flg,sinpan_flg=:sinpan_flg,
+		$sql="UPDATE $member_table set name=:name,car_flg=:car_flg,coach_flg=:coach_flg,
 		member_flg=:member_flg,sort=:sort WHERE id=:id";
 	}
 
@@ -80,7 +79,6 @@ if(isset($_REQUEST['toroku'])){
 	$datas['name'] = $params['name'];
 	$datas['car_flg'] = (int)$params['car_flg'];
 	$datas['coach_flg'] = (int)$params['coach_flg'];
-	$datas['sinpan_flg'] = (int)$params['sinpan_flg'];
 	$datas['member_flg'] = (int)$params['member_flg'];
 	$datas['sort'] = (int)$params['sort'];
 
@@ -149,17 +147,6 @@ ERR_DISP:
 				$("#for_coach_fieldset").attr("disabled",false);
 			}
 		});
-		
-		//コーチ用おにぎり
-		$("select[name='onigiri_flg']").change(function(){
-			var num = $("[name='onigiri_flg']").val();
-			if(num == 2){
-				$("[name='onigiri_syosai[]']").prop("checked",false);
-				//$("[name='onigiri_syosai[]']").attr("disabled",true);
-			}else{
-				//$("[name='onigiri_syosai[]']").attr("disabled",false);
-			}
-		})
 	})
 	</script>
 	<div class="container">
@@ -196,16 +183,6 @@ ERR_DISP:
 		</label>
 	</div>
 <fieldset id="for_coach_fieldset" <?php if(!$params['coach_flg']){?>disabled<?php }?>>
-	<div class="form-group">
-		<label class="col-sm-3 control-label">審判</label>
-		<div class="col-sm-2">
-		<select class="form-control" name="sinpan_flg">
-			<?php foreach($kahi_list as $key=>$value){?>
-			<option value="<?php echo $key?>"<?php if($params['sinpan_flg'] == $key){echo " selected=\"selected\"";}?>><?php echo $value?></option>
-			<?php }?>
-		</select>
-		</div>
-	</div>
 
 	<div class="form-group">
 		<label class="col-sm-3 control-label">車</label>

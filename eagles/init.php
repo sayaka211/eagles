@@ -90,15 +90,8 @@ $sql = "CREATE TABLE `$db_name`.`$event_table` (
   `meet_time` time ,
   `meet_place` VARCHAR(1024) ,
   `lunch_flg` TINYINT  ,
-  `onigiri_flg` TINYINT  ,
-  `onigiri_syosai` VARCHAR(20)  ,
-  `tea_flg` TINYINT  ,
-  `tea_toban` TINYINT  ,
-  `tea_pick` TINYINT  ,
   `car_use_flg` TINYINT ,
   `contents` VARCHAR(1024)  ,
-  `coach_tpl` VARCHAR(1024)  ,
-  `member_tpl` VARCHAR(1024)  ,
   PRIMARY KEY  (`id`)
 ) ";
 try {
@@ -151,7 +144,6 @@ $sql = "CREATE TABLE `$db_name`.`$member_table` (
 `id` int(11) NOT NULL auto_increment,
 `name` VARCHAR(20) ,
 `coach_flg` TINYINT  ,
-`sinpan_flg` TINYINT  ,
 `member_flg` TINYINT  ,
 `car_flg` TINYINT  ,
 `sort` int(11)  ,

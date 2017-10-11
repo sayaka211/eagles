@@ -2,7 +2,6 @@
 include_once("inc/functions.php");
 header("Content-Type: text/html; charset=UTF-8");
 $dbh = db_connection();
-//$member_list = getmemberlist($dbh);
 $coach_list = getmemberlist($dbh,"coach_flg=1");
 $sensyu_list = getmemberlist($dbh,"member_flg=1");
 $coach_list = array_map('current', $coach_list->fetchAll(PDO::FETCH_GROUP));
@@ -77,21 +76,6 @@ foreach($event_datas as $event_id=>$event_data){
 	//$event_datas = getEvent($dbh,$event_id);
 	$event_member_datas[$event_id] = $member_datas;
 }
-/*
- foreach($member_datas as $i=>$attend_data){
- $event_id = $attend_data['event_id'];
- if(!array_key_exists($event_id,$event_datas)){
- $event_data = getEvent($dbh,$event_id);
- if(!empty($event_data)){
- $event_datas[$event_id] = $event_data;
- }
- }
- }
- */
-/*
- var_dump($coach_datas);
- var_dump($member_datas);exit;
- */
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -123,7 +107,7 @@ foreach($event_datas as $event_id=>$event_data){
 	</script>
 	<div class="container">
 	<?php include 'inc/navbar.php'?>
-	<h3>出欠リスト<a href="javascript:history.back()" class="pull-right btn btn-default">戻る</a></h3>
+	<h3>出欠リスト</h3>
 
 	<?php if(count($event_datas) == 0){echo "表示するイベント情報がありません";}?>
 	<?php foreach($event_datas as $event_id=>$event_data){?>

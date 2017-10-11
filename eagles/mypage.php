@@ -105,11 +105,6 @@ $(function(){
 							$("[id$="+com_selecter+"]").hide();
 							$("[id="+status_class_arr[data['attend_flg']]+com_selecter+"]").show();
 							$("[id$="+com_selecter+"]").parent().parent().trigger('click');
-							/*
-							now_form.parent("td").removeClass();
-							now_form.parent("td").addClass("table_cell_center");
-							now_form.parent("td").addClass(status_class_arr[data['attend_flg']]);
-							*/
 						}
 					}else{
 						alert('err');
@@ -136,12 +131,6 @@ $(function(){
 					$attend_data = null;
 					//メモのデフォルト表示
 					$memo = "";
-					if($member_obj['member_flg'] == 1){
-						$memo .= $event_data['member_tpl'];
-					}
-					if($member_obj['coach_flg'] == 1){
-						$memo .= $event_data['coach_tpl'];
-					}
 					$attend_data['memo'] = $memo;
 					//デフォルト
 					$attend_flg=9;

@@ -1,7 +1,7 @@
 <link href="css/jquery.scrolling-tabs.css" rel="stylesheet" type="text/css">
 <script>
 $(document).ready(function() {
-	var activeUrl = location.pathname.split("/")[2];
+	var activeUrl = location.pathname.split("/")[1];
 	navList = $("#gnav").find("a");
 	navList.each(function(){
 		if( $(this).attr("href").split("/")[1] == activeUrl ) {

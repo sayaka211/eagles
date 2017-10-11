@@ -22,11 +22,6 @@ $event_datas = getEventDatas($dbh);
 			<h4 class="panel-title"><a href="./admin_edit.php?event_id=<?php echo $event_data['id']?>" role="button"><?php echo date('Y-m-d（D）',strtotime($event_data['date']))?></a></h4>
 			</div>
 			<div class="panel-body">
-			<!-- 
-			<div class="row">
-			<p class="col-sm-3"><a href="./admin_attend.php?event_id=<?php echo $event_data['id']?>" class="btn btn-info" role="button">出欠リスト</a></p>
-			</div>
-			 -->
 			<div class="row">
 			<p class="col-sm-4 text-success"><span class="glyphicon glyphicon-time"></span><?php echo $event_data['meet_time']?>集合</p>
 			<p class="col-sm-4 text-success"><span class="glyphicon glyphicon-map-marker"></span><?php echo $event_data['meet_place']?></p>

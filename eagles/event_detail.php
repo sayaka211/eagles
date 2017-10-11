@@ -39,7 +39,7 @@ if(empty($event_id)){
 	<body>
 	<div class="container">
 	<?php include 'inc/navbar.php'?>
-	<h3>予定詳細<a href="javascript:history.back()" class="pull-right btn btn-default">戻る</a></h3>
+	<h3>予定詳細</h3>
 	<div class="panel panel-info">
 	<div class="panel-heading">
 	<h4 class="panel-title"><?php echo date('Y-m-d（D）',strtotime($params['date']))?></h4>
@@ -64,31 +64,6 @@ if(empty($event_id)){
 		<dt>▼弁当</dt>
 		<dd><?php echo $lunch_flg_list[$params['lunch_flg']]?>
 		</dd>
-	</dl>
-	<dl>
-		<dt>▼コーチおにぎり</dt>
-		<dd><?php echo $onigiri_flg_list[$params['onigiri_flg']]?>
-		</dd>
-		<dd>
-		<?php 
-		if($params['onigiri_flg'] == 1){
-			$arr = json_decode($params['onigiri_syosai']);
-			if(is_array($arr)){
-				foreach($arr as $toban_id){
-					echo "<dd>　".$onigiri_syosai_list[$toban_id]."　";
-				}
-			}
-		}?>
-		</dd>
-	</dl>
-	<dl>
-		<dt>▼お茶当番</dt>
-		<dd><?php echo $tea_flg_list[$params['tea_flg']];?></dd>
-		<?php 
-		if($params['tea_flg'] == 1){
-			echo "<dd>　当番 : ".$toban_users[$params['tea_toban']]."</dd>";
-			echo "<dd>　ピック : ".$toban_users[$params['tea_pick']]."</dd>";
-		}?>
 	</dl>
 
 	<dl>
