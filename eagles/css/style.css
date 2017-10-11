@@ -1,0 +1,35 @@
+@CHARSET "UTF-8";
+form .required .control-label:after {
+	border-radius: 0.25em;
+	color: #fff;
+	display: inline;
+	font-size: 75%;
+	font-weight: 700;
+	line-height: 1;
+	padding: 0.1em 0.5em;
+	margin-left: 0.7em;
+	text-align: center;
+	vertical-align: baseline;
+	white-space: nowrap;
+	background-color: #d9534f;
+	content: '必須';
+}
+body {font-size: calc(150.5% + 0.25vw) }
+
+pre {
+	/* Mozilla */
+	white-space: -moz-pre-wrap;
+	/* Opera 4-6 */
+	white-space: -pre-wrap;
+	/* Opera 7 */
+	white-space: -o-pre-wrap;
+	/* CSS3 */
+	white-space: pre-wrap;
+	/* IE 5.5+ */
+	word-wrap: break-word;
+}
+/*
+h3 {
+	padding-bottom: .3em;
+	border-bottom: 1px solid #ccc;
+}*/
