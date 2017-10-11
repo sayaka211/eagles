@@ -219,13 +219,12 @@ ERR_DISP:
 	</div>
 </fieldset>
 
-<div class="form-group">
+	<div class="form-group">
 		<label class="col-sm-3 control-label">ソート</label>
 		<div class="col-sm-3">
 			<input type="text" class="form-control" name="sort" value="<?php echo $params['sort']?>">
 		</div>
 	</div>
-	<div class="form-group">
 
 	<div><hr></div>
 

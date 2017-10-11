@@ -57,7 +57,6 @@ $status_class_arr = array(
 <!DOCTYPE html>
 <html lang="ja">
 <?php include 'inc/header.php'?>
-	<body>
 	<style>
 	.mikaitou {
 		background: #e1cea3;
@@ -78,6 +77,7 @@ $status_class_arr = array(
 		letter-spacing: 1px;
 	}
 	</style>
+	<body>
 	<div class="container">
 	<?php include 'inc/navbar.php'?>
 		<h3><?php echo $member_obj['name']?>さんの予定</h3>
