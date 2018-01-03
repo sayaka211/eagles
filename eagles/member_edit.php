@@ -95,10 +95,9 @@ if(isset($_REQUEST['toroku'])){
 }
 //削除する
 if(isset($_REQUEST['delete'])){
-	$sql = 'delete from member where id = :member_id';
+	$sql = "delete from $member_table where id = :member_id";
 	$stmt = $dbh->prepare($sql);
-	$flag = $stmt->execute(array(':member_id' => $member_id));
-
+	$flag = $stmt->execute(array('member_id' => $member_id));
 	if (!$flag){
 		print('memberデータの削除に失敗しました<br>');
 		exit;
@@ -106,8 +105,7 @@ if(isset($_REQUEST['delete'])){
 	//出席者情報も削除
 	$sql = "delete from $attend_table where member_id = :member_id";
 	$stmt = $dbh->prepare($sql);
-	$flag = $stmt->execute(array(':member_id' => $member_id));
-
+	$flag = $stmt->execute(array('member_id' => $member_id));
 	if (!$flag){
 		print('memberデータの削除に失敗しました<br>');
 		exit;
